@@ -2,8 +2,14 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  position:relative;
+  z-index: 500;
 }
 
 body {
