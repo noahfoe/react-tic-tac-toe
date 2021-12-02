@@ -5,9 +5,10 @@ import getWinCons from './WinCons';
 
 //let loopDone = false;
 let playingBoard = [];
+let newPlayingBoard = [];
+let newWinCons = [];
 function App() {
   // TODO: "O" sometimes starts first
-  // TODO: Game Over screen sometimes pops up too many times
   // Creates a blank array of size "num" for the playing board
   const chooseBoardSize = (num) => {
     let board = [];
@@ -18,16 +19,19 @@ function App() {
   }
 
   if(playingBoard.length == 0) {
-    playingBoard = chooseBoardSize(9);
+    playingBoard = chooseBoardSize(9); // Default to 3x3 board
   }
   
   let WinCons = getWinCons(playingBoard);
-  const [winCons, setWinCons] = useState(WinCons);
 
-  const [board, setBoard] = useState(playingBoard); // 16 boxes (4x4 grid)
+  const [winCons, setWinCons] = useState(WinCons);
+  const [board, setBoard] = useState(playingBoard);
   const [player, setPlayer] = useState("O");
   const [result, setResult] = useState({winner: "none", state: "none"});
+  
   const rows =  Array.from({length: Math.sqrt(board.length)});
+
+
   // Called every time the board is updated
   useEffect(() => {
     checkIfTie();
@@ -89,16 +93,20 @@ function App() {
   };
 
   const restartGame = () => {
-    setBoard(playingBoard);
+    if(newPlayingBoard.length == 0) {
+      setBoard(playingBoard);
+    } else {
+      setBoard(newPlayingBoard);
+    }
     setPlayer("O");
   };
 
   const onChangeValue = (event) => {
     const { name, value } = event.target;
-    playingBoard = chooseBoardSize(parseInt(value));
-    setBoard(playingBoard);
-    WinCons = getWinCons(playingBoard);
-    setWinCons(WinCons);
+    newPlayingBoard = chooseBoardSize(parseInt(value));
+    setBoard(newPlayingBoard);
+    newWinCons = getWinCons(newPlayingBoard);
+    setWinCons(newWinCons);
   };
 
   return (
