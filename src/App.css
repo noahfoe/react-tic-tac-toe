@@ -5,6 +5,7 @@
   position: absolute;
   justify-content: center;
   align-items: center;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 h1 {
@@ -32,9 +33,26 @@ body {
   flex-direction: row;
 }
 
+.title {
+  position:absolute;
+  top: 10%;
+  font-size: 50px;
+}
+
 .radioButtons {
   position:absolute;
   top: 20%;
+  font-size: 25px;
+}
+
+input[type="radio"]{
+  margin: 0 5px 0 25px;
+}
+
+.currPlayer {
+  position: absolute;
+  top: 25%;
+  left: 28%;
 }
 
 .square {
