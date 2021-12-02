@@ -1,4 +1,4 @@
-const getWinCons = (playingBoard) => { 
+const getWinCons = (playingBoard) => {
     let WinCons = [];
     if(playingBoard.length == 9) {
         WinCons = [

@@ -8,7 +8,7 @@ let playingBoard = [];
 let newPlayingBoard = [];
 let newWinCons = [];
 let newPlayer;
-function App() {
+function App() { 
   // Creates a blank array of size "num" for the playing board
   const chooseBoardSize = (num) => {
     let board = [];
