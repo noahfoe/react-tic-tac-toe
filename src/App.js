@@ -111,8 +111,7 @@ function App() {
 
   return (
     <div className="App">
-    {/* TODO: CSS to make radio buttons not beside board */}
-      <div className="radioButtons" >
+      <div className="radioButtons">
         <input type="radio" value="9" defaultChecked name="boardSize" onChange={val => onChangeValue(val)}/> 3x3
         <input type="radio" value="16" name="boardSize" onChange={val => onChangeValue(val)}/> 4x4
         <input type="radio" value="25" name="boardSize" onChange={val => onChangeValue(val)}/> 5x5
