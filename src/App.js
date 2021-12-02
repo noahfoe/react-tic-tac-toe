@@ -31,7 +31,6 @@ function App() {
   
   const rows =  Array.from({length: Math.sqrt(board.length)});
 
-
   // Called every time the board is updated
   useEffect(() => {
     checkIfTie();
@@ -46,7 +45,6 @@ function App() {
       setPlayer("X");
     }}
   }, [board]);
-
 
   // Called every time the result is updated
   useEffect(() => {
