@@ -3,12 +3,11 @@ import {useState, useEffect} from 'react'
 import Square from "./Components/Square";
 import getWinCons from './WinCons';
 
-//let loopDone = false;
 let playingBoard = [];
 let newPlayingBoard = [];
 let newWinCons = [];
 let newPlayer;
-function App() {
+function App() { 
   // Creates a blank array of size "num" for the playing board
   const chooseBoardSize = (num) => {
     let board = [];
@@ -114,7 +113,7 @@ function App() {
     newWinCons = getWinCons(newPlayingBoard);
     setWinCons(newWinCons);
   };
-
+elop
   return (
     <div className="App">
     <div className="title">Ultimate Tic-Tac-Toe</div>
