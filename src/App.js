@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react'
 import Square from "./Components/Square";
 import getWinCons from './WinCons';
 
-//let loopDone = false;
 let playingBoard = [];
 let newPlayingBoard = [];
 let newWinCons = [];
