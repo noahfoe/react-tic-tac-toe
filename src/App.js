@@ -113,7 +113,7 @@ function App() {
     newWinCons = getWinCons(newPlayingBoard);
     setWinCons(newWinCons);
   };
-  
+
   return (
     <div className="App">
     <div className="title">Ultimate Tic-Tac-Toe</div>
