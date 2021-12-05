@@ -27,6 +27,9 @@ function App() {
   const [board, setBoard] = useState(playingBoard);
   const [player, setPlayer] = useState("O");
   const [result, setResult] = useState({winner: "none", state: "none"});
+
+  const gameOverElement = document.getElementById('gameOver');
+  const winningMessageElement = document.querySelector('[data-winning-message]');
   
   const rows =  Array.from({length: Math.sqrt(board.length)});
 
@@ -34,22 +37,32 @@ function App() {
   useEffect(() => {
     checkIfTie();
     checkWinCons();
-    if(newPlayer) {
-      setPlayer(newPlayer);
-      newPlayer = "";
-    } else {
-    if(player == "X") {
-      setPlayer("O");
-    } else {
+    // Ensure that X starts first if board size has been changed
+    if(newPlayer == "O") {
       setPlayer("X");
-    }}
+      newPlayer = "";
+    } else if(newPlayer == "X") {
+      setPlayer("X");
+      newPlayer = "";
+      // Otherwise, Ensure it is next players turn
+    } else {
+      if(player == "X") {
+        setPlayer("O");
+      } else {
+        setPlayer("X");
+      }
+    }
   }, [board]);
 
   // Called every time the result is updated
   useEffect(() => {
     if(result.state != "none") {
-      alert(`Game Over: Winner is ${result.winner}`);
-      restartGame();
+      if(result.winner == "No One") {
+        winningMessageElement.innerText = "Tie!";
+      } else {
+        winningMessageElement.innerText = `${result.winner} Wins!`
+      }
+      gameOverElement.classList.add('show');
     }
   }, [result]);
 
@@ -102,7 +115,7 @@ function App() {
       setBoard(newPlayingBoard);
     }
     setPlayer("O");
-    
+    gameOverElement.classList.remove('show');
   };
 
   const onChangeValue = (event) => {
@@ -135,6 +148,10 @@ function App() {
               })}
             </div>
           ))}
+      </div>
+      <div className="winning-message" id="gameOver">
+        <div data-winning-message></div>
+        <button onClick={restartGame} id="restartButton">Restart</button>
       </div>
     </div>
   );
