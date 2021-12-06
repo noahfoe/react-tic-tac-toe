@@ -41,7 +41,7 @@ body {
 
 .radioButtons {
   position:absolute;
-  top: 20%;
+  top: 19%;
   left: 39%; 
   font-size: 25px;
 }
@@ -68,7 +68,7 @@ input[type="radio"]{
 }
 
 .square:active {
-  background-color: #64f4c4;
+  background-color: var(--active-color);
 }
 
 .winning-message {
@@ -102,4 +102,27 @@ input[type="radio"]{
 
 .winning-message.show {
   display: flex;
+}
+
+.colorInputs {
+  position: absolute;
+  bottom: 19%;
+  left: 34.5%;
+  font-size: 25px;
+}
+
+input[type="color"]{
+  margin: 0 15px 0 5px;
+}
+
+.resetColors {
+  position: absolute;
+  left: 40%;
+}
+
+.resetColors button {
+  font-size: 1rem;
+  border: 1px solid black;
+  padding: .25em .5em;
+  cursor: pointer;
 }
