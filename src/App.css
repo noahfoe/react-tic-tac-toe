@@ -35,25 +35,44 @@ body {
 
 .title {
   position:absolute;
-  top: 10%;
+  top: 8%;
   font-size: 50px;
 }
 
 .radioButtons {
-  position:absolute;
-  top: 19%;
-  left: 39%; 
+  position: absolute;
+  top: 18%;
   font-size: 25px;
+  margin: auto;
+  width: auto;
+  padding: 10px;
 }
 
 input[type="radio"]{
   margin: 0 5px 0 25px;
 }
 
+.radioButtonsTwo {
+  position: absolute;
+  top: 15%;
+  font-size: 25px;
+  margin: auto;
+  width: auto;
+  padding: 10px;
+}
+
 .currPlayer {
   position: absolute;
-  top: 25%;
+  top: 24%;
   left: 28%;
+  margin: auto;
+}
+
+.winCount {
+  position: absolute;
+  top: 22%;
+  left: 64%;
+  margin: auto;
 }
 
 .square {
@@ -106,9 +125,11 @@ input[type="radio"]{
 
 .colorInputs {
   position: absolute;
-  bottom: 19%;
-  left: 34.5%;
+  bottom: 18%;
   font-size: 25px;
+  margin: auto;
+  width: auto;
+  padding: 10px;
 }
 
 input[type="color"]{
@@ -117,7 +138,10 @@ input[type="color"]{
 
 .resetColors {
   position: absolute;
-  left: 40%;
+  top: 82%;
+  margin: auto;
+  width: auto;
+  padding: 10px;
 }
 
 .resetColors button {
