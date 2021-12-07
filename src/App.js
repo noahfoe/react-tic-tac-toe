@@ -21,7 +21,7 @@ function App() {
     return board;
   }
 
-  if(playingBoard.length == 0) {
+  if(playingBoard.length === 0) {
     playingBoard = chooseBoardSize(9); // Default to 3x3 board
   }
   
@@ -44,6 +44,11 @@ function App() {
   const [isPlayingClick, setIsPlayingClick] = useState(false);
   const [isPlayingGameOver, setIsPlayingGameOver] = useState(false);
 
+  const [xWinCount, setXWinCount] = useState(0);
+  const [oWinCount, setOWinCount] = useState(0);
+  const [yWinCount, setYWinCount] = useState(0);
+  const [zWinCount, setZWinCount] = useState(0);
+
   const gameOverElement = document.getElementById('gameOver');
   const winningMessageElement = document.querySelector('[data-winning-message]');
   
@@ -62,7 +67,7 @@ function App() {
       newPlayer = "";
       // Otherwise, Ensure it is next players turn
     } else if(numberOfPlayers === 2) {
-      if(player == "X") {
+      if(player === "X") {
         setPlayer("O");
       } else {
         setPlayer("X");
@@ -80,9 +85,9 @@ function App() {
       newPlayer = ''
       // Otherwise, Ensure it is next players turn
     } else if(numberOfPlayers === 3) {
-      if(player == "X") {
+      if(player === "X") {
         setPlayer("O");
-      } else if(player == 'O') {
+      } else if(player === 'O') {
         setPlayer("Y");
       } else {
         setPlayer('X')
@@ -117,8 +122,8 @@ function App() {
 
   // Called every time the result is updated
   useEffect(() => {
-    if(result.state != "none") {
-      if(result.winner == "No One") {
+    if(result.state !== "none") {
+      if(result.winner === "No One") {
         winningMessageElement.innerText = "Tie!";
       } else {
         winningMessageElement.innerText = `${result.winner} Wins!`
@@ -129,9 +134,9 @@ function App() {
 
   // Decides which square the player selected and which player selected it 
   const chooseSquare = (square) => {
-    if(board[square] != "X" && board[square] != "O" && board[square] != "Y" && board[square] != "Z") {
+    if(board[square] !== "X" && board[square] !== "O" && board[square] !== "Y" && board[square] !== "Z") {
       setBoard(board.map((val, idx) => {
-        if(idx == square && val == "") {
+        if(idx === square && val === "") {
           setIsPlayingClick(true);
           return player;
         }
@@ -144,15 +149,23 @@ function App() {
   const checkWinCons = () => {
     winCons.forEach((currWinCon) => {
       const firstPlayer = board[currWinCon[0]];
-      if(firstPlayer == "") return;
+      if(firstPlayer === "") return;
       let foundWinCon = true;
       currWinCon.forEach((idx) => {
-        if(board[idx] != firstPlayer) {
+        if(board[idx] !== firstPlayer) {
           foundWinCon = false;
         }
       });
       if(foundWinCon) {
         setIsPlayingGameOver(true);
+        // Increment count for whoever won
+        if(player === "X")
+          setXWinCount(xWinCount + 1);
+        else if(player === "O")
+          setOWinCount(oWinCount + 1);
+        else if(player === "Y")
+          setYWinCount(yWinCount + 1);
+        else setZWinCount(zWinCount + 1);
         setResult({winner: player, state: "GameWon"});
       }
     });
@@ -162,7 +175,7 @@ function App() {
   const checkIfTie = () => {
     let tie = true;
     board.forEach((square) => {
-      if(square == "") {
+      if(square === "") {
         tie = false;
       }
     });
@@ -173,7 +186,7 @@ function App() {
   };
 
   const restartGame = () => {
-    if(newPlayingBoard.length == 0) {
+    if(newPlayingBoard.length === 0) {
       setBoard(playingBoard);
     } else {
       setBoard(newPlayingBoard);
@@ -244,6 +257,12 @@ function App() {
       </div>
       
       <div className="currPlayer">Current Player is: '{player}'</div>
+      <div className="winCount">
+        <p>'X' has won {xWinCount} times!</p>
+        <p>'O' has won {oWinCount} times!</p>
+        <p>'Y' has won {yWinCount} times!</p>
+        <p>'Z' has won {zWinCount} times!</p>
+      </div>
       <div className="board" id="board" style={{ backgroundColor: boardColor }}>
           {rows.map((row, y) => (
             <div key={y} className="row">
@@ -262,9 +281,7 @@ function App() {
         <label>X: <input type="color" value={xColor} onChange={e => setXColor(e.target.value)} /></label>
         <label>O: <input type="color" value={oColor} onChange={e => setOColor(e.target.value)} /></label>
         {numberOfPlayers > 2 ? <label>Y: <input type="color" value={yColor} onChange={e => setYColor(e.target.value)} /></label> : null}
-        {numberOfPlayers > 3 ? <label>Z: <input type="color" value={zColor} onChange={e => setZColor(e.target.value)} /></label> : null}     
-        
-        
+        {numberOfPlayers > 3 ? <label>Z: <input type="color" value={zColor} onChange={e => setZColor(e.target.value)} /></label> : null}       
         <Sound
           url={click}
           playStatus={isPlayingClick ? Sound.status.PLAYING : Sound.status.STOPPED}
@@ -278,9 +295,6 @@ function App() {
       </div>
       <div className="resetColors">
           <button className="resetColorsButton" onClick={resetColors}>Reset Colors</button>
-        </div>
-      <div className="sounds">
-        
       </div>
       
       <div className="winning-message" id="gameOver">

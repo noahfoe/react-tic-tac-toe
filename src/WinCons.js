@@ -1,6 +1,6 @@
 const getWinCons = (playingBoard) => {
     let WinCons = [];
-    if(playingBoard.length == 9) {
+    if(playingBoard.length === 9) {
         WinCons = [
             // Rows
             [0, 1, 2],
@@ -14,7 +14,7 @@ const getWinCons = (playingBoard) => {
             [0, 4, 8],
             [2, 4, 6],
         ];
-    } else if(playingBoard.length == 16) {
+    } else if(playingBoard.length === 16) {
         WinCons = [
             // Rows
             [0, 1, 2, 3],
@@ -30,7 +30,7 @@ const getWinCons = (playingBoard) => {
             [0, 5, 10, 15],
             [3, 6, 9, 12],
         ];
-    } else if(playingBoard.length == 25) {
+    } else if(playingBoard.length === 25) {
         /*
         [0][1][2][3][4]
         [5][6][7][8][9]

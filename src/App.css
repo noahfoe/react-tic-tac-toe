@@ -63,8 +63,15 @@ input[type="radio"]{
 
 .currPlayer {
   position: absolute;
-  top: 25%;
+  top: 24%;
   left: 28%;
+  margin: auto;
+}
+
+.winCount {
+  position: absolute;
+  top: 22%;
+  left: 64%;
   margin: auto;
 }
 
