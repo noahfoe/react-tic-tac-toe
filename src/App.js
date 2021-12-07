@@ -2,6 +2,9 @@ import './App.css';
 import {useState, useEffect} from 'react'
 import Square from "./Components/Square";
 import getWinCons from './WinCons';
+import Sound from 'react-sound';
+import click from './Sounds/click.mp3';
+import gameOver from './Sounds/gameover.mp3';
 
 let playingBoard = [];
 let newPlayingBoard = [];
@@ -32,6 +35,9 @@ function App() {
   const [boardColor, setBoardColor] = useState('#7fffd4');
   const [xColor, setXColor] = useState('#ff0000');
   const [oColor, setOColor] = useState('#0000ff');
+
+  const [isPlayingClick, setIsPlayingClick] = useState(false);
+  const [isPlayingGameOver, setIsPlayingGameOver] = useState(false);
 
   const gameOverElement = document.getElementById('gameOver');
   const winningMessageElement = document.querySelector('[data-winning-message]');
@@ -76,6 +82,7 @@ function App() {
     if(board[square] != "X" && board[square] != "O") {
       setBoard(board.map((val, idx) => {
         if(idx == square && val == "") {
+          setIsPlayingClick(true);
           return player;
         }
         return val;
@@ -95,6 +102,7 @@ function App() {
         }
       });
       if(foundWinCon) {
+        setIsPlayingGameOver(true);
         setResult({winner: player, state: "GameWon"});
       }
     });
@@ -109,6 +117,7 @@ function App() {
       }
     });
     if(tie) {
+      setIsPlayingGameOver(true);
       setResult({winner: "No One", state: "Tie"});
     }
   };
@@ -121,6 +130,7 @@ function App() {
     }
     setPlayer("O");
     gameOverElement.classList.remove('show');
+    setIsPlayingGameOver(false);
   };
 
   const onChangeValue = (event) => {
@@ -142,6 +152,14 @@ function App() {
     setXColor(defaultXColor);
     setBoardColor(defaultBoardColor);
     setActiveSquareColor(defaultActiveBoardSquare);
+  }
+
+  const handleOnFinishedPlayingClick = () => {
+    setIsPlayingClick(false);
+  }
+
+  const handleOnFinishedPlayingGameOver = () => {
+    setIsPlayingGameOver(false);
   }
 
   return (
@@ -175,6 +193,19 @@ function App() {
         <div className="resetColors">
           <button className="resetColorsButton" onClick={resetColors}>Reset Colors</button>
         </div>
+        <Sound
+          url={click}
+          playStatus={isPlayingClick ? Sound.status.PLAYING : Sound.status.STOPPED}
+          playFromPosition={0}
+          onFinishedPlaying={handleOnFinishedPlayingClick}/>
+        <Sound
+          url={gameOver}
+          playStatus={isPlayingGameOver ? Sound.status.PLAYING : Sound.status.STOPPED}
+          playFromPosition={0}
+          onFinishedPlaying={handleOnFinishedPlayingGameOver}/>
+      </div>
+      <div className="sounds">
+        
       </div>
       
       <div className="winning-message" id="gameOver">
